@@ -1,0 +1,37 @@
+public class CriptoanáliseVigenare {
+	private static String CRIPTOGRAMA = "05551b5f59310f200c11d9523f186e555f016a05275e5e172307214210162f552b5f431b241a6e5f515229143e58441326552a5e10022b983d1f103b24143b5645002b112111531d271a6e72551c3e07211154176a302042591c25551b5f591423162f555f522e106e73421339982258515267550d7465306a102311014b7c4d6211441d381b21441d012f552111400023182b58421d6a162b5f440025553b5f59042f073d584493381c211154136a072b565991255520501016a3162f5551522e106e0800522f553e50430125006e50101122142350425f39106e72551c3e072111651c23032b43431b3e943c585f522e106e73421339982258515267551b5f59310f200c1f103125186e545e01231b211154176a103652551ea01b2d5851522f553e5e5c9f3e1c2d5010162f553c545e1d3c14a9d25f523a103c5c511c2f1b3a541c522b55275f430623013b58d79125552f525f1f3a14205951522b066e54461d2600a9c455016a012b525e1d26862958531339552b1140172e1429c2571b29143d1f103d6a20205873371f376e5e561738102d5410113f073d5e435224143d11d1002f143d1154176a1627db5e1123143d115a0738982a58531339596e525998241627504352391a2d58511b39596e5259982416275043522f0d2f45510166552d58da1c291c2f4210162b553d50ca162f596e5259982416275043522e146e5454072914a9d25f522f553a54531c25192156591366552f5dd91f6a11214210113f073d5e43522e106e41c30167123c5054072b92ad5e101e2b012111555239013c58530625553d545e013f5b";
+
+	public static void main(String[] args) {
+		for (int tamanhoChave = 1; tamanhoChave <= 20; tamanhoChave += 1) {
+
+			System.out.println("===================");
+			System.out.println("Testando Chave de" + "Tamanho" + tamanhoChave);
+
+			for (int numeroDoConjunto = 0; numeroDoConjunto < tamanhoChave; numeroDoConjunto++) {
+				int[] vetorOcorrencias = new int[256];
+				for (int i = 0; i < CRIPTOGRAMA.length(); i += 2) {
+					String caractereCifra = CRIPTOGRAMA.substring(i, i + 2);
+					if ((i / 2) % tamanhoChave == numeroDoConjunto) {
+						vetorOcorrencias[Integer.parseInt(caractereCifra, 16)]++;
+					}
+				}
+				System.out.print("Conjunto" + numeroDoConjunto + ": ");
+				imprimirMaiorOcorrencia(vetorOcorrencias);
+
+			}
+		}
+	}
+
+	private static void imprimirMaiorOcorrencia(int[] vetor) {
+		int maior = 0;
+		int caractere = 0;
+
+		for (int i = 0; i < vetor.length; i++) {
+			if (vetor[i] > maior) {
+				caractere = i;
+				maior = vetor[i];
+			}
+		}
+		System.out.println((char) (caractere ^ 32));
+	}
+}
